@@ -146,7 +146,7 @@ dd {
 .chart {
   display: block;
   width: 100%;
-  min-width: 640px;
+  min-width: 720px;
   height: auto;
 }
 
