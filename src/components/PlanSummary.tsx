@@ -30,7 +30,7 @@ export function PlanSummary({ result }: Props) {
   }
 
   const { plan } = result;
-  const saving = plan.savingPence;
+  const { startNowCostPence: startNow, savingPence: saving } = plan;
   return (
     <section aria-labelledby="plan-heading" className="card summary">
       <h2 id="plan-heading">Cheapest time to charge</h2>
@@ -54,8 +54,9 @@ export function PlanSummary({ result }: Props) {
           <div>
             <dt>If you started now</dt>
             <dd>
-              {formatPounds(plan.startNowCostPence)}
-              {saving >= 0.5 ? `, so this saves ${formatPounds(saving)}` : ', about the same'}
+              {startNow === null || saving === null
+                ? 'Not known, as there is a gap in the prices'
+                : `${formatPounds(startNow)}${saving >= 0.5 ? `, so this saves ${formatPounds(saving)}` : ', about the same'}`}
             </dd>
           </div>
         </dl>

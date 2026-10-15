@@ -21,7 +21,7 @@ Feature: What a charge costs
         | 17             | 7   | 0.5 hours | 3.5    | 17.0p   | £0.60  |
         | -5, -5         | 7   | 1 hour    | 7      | -5.0p   | -£0.35 |
 
-  Rule: The saving is against starting now, in the first half-hours available
+  Rule: The saving is against starting now, in the first half-hours available, back to back
 
     Scenario Outline: What starting now would cost
       Given the half-hourly prices from 00:00 are <prices>
@@ -35,3 +35,11 @@ Feature: What a charge costs
         | 10, 10, 30, 30 | 00:00 | £0.70  | £0.00  |
         | 30, 30, 10, 10 | 00:45 | £1.40  | £0.70  |
         | -5, -5, 10, 10 | 00:00 | -£0.35 | £0.00  |
+
+  Rule: Starting now means one unbroken charge, so a gap in the prices leaves it unknown
+
+    Scenario: A gap in the next half-hours is never priced as if the charge jumped it
+      Given the half-hourly prices from 00:00 are 1, gap, 1, 20, 20
+      When I plan to charge for 1 hour, together
+      Then it charges 01:00 to 02:00
+      And starting now cannot be priced, because of the gap

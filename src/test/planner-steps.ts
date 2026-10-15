@@ -85,7 +85,12 @@ export const plannerSteps: Vocabulary = (step) => {
 
   step('starting now would cost {any}, so the plan saves {any}', (startNow, saving) => {
     const { startNowCostPence, savingPence } = plan(world.result);
-    expect(formatPounds(startNowCostPence)).toBe(startNow);
-    expect(formatPounds(savingPence)).toBe(saving);
+    expect(startNowCostPence).not.toBeNull();
+    expect(formatPounds(startNowCostPence!)).toBe(startNow);
+    expect(formatPounds(savingPence!)).toBe(saving);
+  });
+
+  step('starting now cannot be priced, because of the gap', () => {
+    expect(plan(world.result)).toMatchObject({ startNowCostPence: null, savingPence: null });
   });
 };
