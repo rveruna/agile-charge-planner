@@ -57,6 +57,20 @@ docs/decisions/ the reasoning behind the main choices
 - **The planner is plain functions** (`planCharge`, `cheapestTogether`, `cheapestFlexible`), so the logic is tested
   without a browser.
 
+## Rules
+
+What the app promises is written as plain-English rules that run with the tests
+([0007](docs/decisions/0007-the-rules-as-executable-feature-files.md)). A failing rule means the code is wrong, not the
+rule.
+
+- [Choosing when to charge](src/domain/choosing-slots.feature): together, flexible, negative prices, "charge within"
+  and when the prices do not cover the charge
+- [What a charge costs](src/domain/cost.feature): energy, average price and cost, and the saving against starting now
+- [Showing times in UK time](src/domain/uk-time.feature): UTC prices shown in UK time across the clocks changing, and
+  back-to-back half-hours read as one range
+
+To add a scenario, add a row or a scenario to a feature file and run `npm test`.
+
 ## Accessibility
 
 - The chart is a picture with a text description, and the table beside it has every figure. Chosen slots are marked in
