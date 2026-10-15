@@ -22,7 +22,7 @@ It is an independent project and is not affiliated with Octopus Energy. Prices a
   starting now
 - Handles negative prices, where you are paid to use electricity
 - Shows UK time whatever time zone the viewer is in, including across the clocks changing
-- Keeps every choice in the URL, so a link reproduces the view and the back button works
+- Keeps every choice in the URL, so a link reproduces the view
 - Saves prices in the browser for 24 hours and says plainly when it is showing saved ones
 - Offers clearly labelled sample prices when the live ones cannot be loaded
 
@@ -46,7 +46,7 @@ src/
   domain/       prices, the planner, settings, formatting (no React, tested on their own)
   api/          the Octopus client with response validation, and the sample-price generator
   hooks/        URL-backed settings, prices (TanStack Query), the clock
-  components/   settings form, status banner, plan summary, chart, table
+  components/   settings form, status banner, plan summary, chart, table, theme toggle
 docs/decisions/ the reasoning behind the main choices
 ```
 
@@ -84,9 +84,9 @@ To add a scenario, add a row or a scenario to a feature file and run `npm test`.
 
 ## Practices
 
-- **Tests:** 125 (Vitest, Testing Library, MSW for the network). Coverage is 98.9% of statements, 95.9% of branches
-  and 97.8% of functions. They include the clocks going back, negative prices, gaps in the data, an unreachable
-  service, saved prices when offline and the back button.
+- **Tests:** 147, plus 43 rule scenarios (Vitest, Testing Library, MSW for the network). Coverage is 99.0% of
+  statements, 96.6% of branches and 97.9% of functions. They include the clocks going back, negative prices, gaps
+  in the data, an unreachable service, saved prices when offline and changes to the URL.
 - **Mutation check:** I made 24 deliberate changes to the planner, formatting, client and interface logic and ran the
   tests against each. The first run missed 5 (a boundary, a zero-length period, a tie-break, the cache window and the
   axis labels), so I wrote tests for them, and now all 24 are caught. The script is a one-off and is not in the repo.
@@ -96,7 +96,7 @@ To add a scenario, add a row or a scenario to a feature file and run `npm test`.
   coverage, a bundle budget (JS 115 kB, CSS 3 kB gzipped) and Lighthouse with minimum scores. A pre-commit hook formats
   and lints staged files. Dependabot and CodeQL are on.
 - **Performance:** see [docs/performance.md](docs/performance.md). Lighthouse gives 100 in all four categories on
-  simulated Slow 4G, with a 105 kB page.
+  simulated Slow 4G, with a 107 kB page.
 
 ## Limits and what I would improve
 

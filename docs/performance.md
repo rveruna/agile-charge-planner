@@ -13,7 +13,7 @@ production build in sample mode, so no request goes to Octopus Energy and the nu
 | Page weight                        | 105 kB (scripts 103 kB) |
 
 `npm run size` fails the build if the gzipped JavaScript passes 115 kB or the CSS passes 3 kB. Today's figures are
-104.9 kB and 0.9 kB. Most of the JavaScript is React itself, then TanStack Query.
+105.3 kB and 1.9 kB. Most of the JavaScript is React itself, then TanStack Query.
 
 Not measured: the API's own response time, and how the app behaves on a real device. The live site also depends on
 Octopus Energy's service being up.
