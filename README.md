@@ -5,6 +5,8 @@
 
 **[Live demo](https://rveruna.github.io/agile-charge-planner/)** (uses the real Octopus Energy prices)
 
+[![The planner loading: price bars grow in, the cheapest three hours light up in order, then the plan changes as the charge length and style change](docs/demo.gif)](https://rveruna.github.io/agile-charge-planner/)
+
 Pick your region and how long you need to charge, and the app finds the cheapest half-hours to charge an electric car
 on the Agile Octopus tariff. It shows the plan, what it would cost, what starting now would cost instead, a chart of the
 prices and the same prices as a table.
