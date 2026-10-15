@@ -1,11 +1,43 @@
+/* Every colour is a token here. colors.test.ts reads both theme blocks from this file and checks their contrast. */
 :root {
+  --bg: #0b0f14;
+  --surface: #131a22;
+  --text: #e6edf3;
+  --muted: #9fb0c0;
+  --accent: #4ade80;
+  --bar: #606c79;
+  --bar-chosen: #4ade80;
+  --axis: #8b98a5;
+  --line: #2a3542;
+  --focus: #7aa2ff;
+  --warn-bg: #2a2410;
+  --error-bg: #2d1518;
+  --quiet-bg: #0f2a1d;
+  --glow: rgb(74 222 128 / 0.45);
+  --halo: rgb(74 222 128 / 0.12);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f5f7f9;
+  --surface: #ffffff;
   --text: #1f2933;
   --muted: #3e4c59;
   --accent: #0b6b3a;
-  --line: #9aa5b1;
+  --bar: #8795a1;
+  --bar-chosen: #064e2b;
+  --axis: #3e4c59;
+  --line: #c5ced6;
+  --focus: #1c4fd8;
   --warn-bg: #fff4d6;
   --error-bg: #fde8e8;
   --quiet-bg: #eef6f1;
+  --glow: transparent;
+  --halo: rgb(11 107 58 / 0.08);
+  color-scheme: light;
+}
+
+:root {
   font-family:
     system-ui,
     -apple-system,
@@ -13,7 +45,7 @@
     Roboto,
     sans-serif;
   color: var(--text);
-  background: #fff;
+  background: radial-gradient(60rem 30rem at 50% -10rem, var(--halo), transparent 70%) no-repeat var(--bg);
   line-height: 1.5;
 }
 
@@ -25,61 +57,134 @@ body {
 header,
 main,
 footer {
-  max-width: 48rem;
+  max-width: 56rem;
   margin: 0 auto;
 }
 
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 h1 {
-  margin-bottom: 0.25rem;
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+h1::before {
+  content: '⚡ ';
 }
 
 h2 {
-  margin-top: 1.5rem;
-  font-size: 1.2rem;
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.intro {
+  max-width: 56rem;
+  margin: 0.25rem auto 0;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+
+/* The answer comes first and biggest: it is the reason anyone opens the page */
+.summary {
+  padding: 2rem 1.25rem;
+}
+
+.summary h2 {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.summary .when {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 1.25rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 32px var(--glow);
 }
 
 .settings {
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  margin: 1rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 }
 
 .settings label {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  color: var(--muted);
 }
 
 fieldset {
   grid-column: 1 / -1;
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.choice {
-  display: flex;
-  flex-direction: row !important;
+legend {
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.settings .choice {
+  flex-direction: row;
   align-items: center;
-  font-weight: 400 !important;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.choice:has(:checked) {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 
 select,
 button {
   font: inherit;
-  padding: 0.5rem;
+  padding: 0.5rem 0.9rem;
   min-height: 2.75rem;
-  border: 1px solid var(--muted);
-  border-radius: 6px;
-  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
   color: var(--text);
 }
 
 input[type='radio'] {
   width: 1.25rem;
   height: 1.25rem;
-  margin-right: 0.5rem;
+  margin: 0 0.5rem 0 0;
+  accent-color: var(--accent);
 }
 
 button {
@@ -87,14 +192,19 @@ button {
   margin-right: 0.5rem;
 }
 
+.theme-toggle {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 :focus-visible {
-  outline: 3px solid #1c4fd8;
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
 }
 
 .banner {
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  border-radius: 12px;
   border: 1px solid var(--line);
   background: var(--quiet-bg);
 }
@@ -105,6 +215,7 @@ button {
 
 .banner-quiet {
   margin: 0;
+  font-size: 0.9rem;
 }
 
 .banner-warn {
@@ -115,27 +226,23 @@ button {
   background: var(--error-bg);
 }
 
-.summary .when {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 0.25rem 0;
-  color: var(--accent);
-}
-
 dl {
   display: grid;
-  gap: 0.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  margin: 0;
 }
 
 dt {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
 dd {
   margin: 0;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .chart-scroll {
@@ -150,15 +257,68 @@ dd {
   height: auto;
 }
 
+.chart text {
+  fill: var(--text);
+}
+
+.bar {
+  fill: var(--bar);
+  transition:
+    y 0.4s ease,
+    height 0.4s ease,
+    fill 0.3s ease;
+}
+
+.bar.chosen,
+.marker {
+  fill: var(--bar-chosen);
+}
+
+.bar.chosen {
+  filter: drop-shadow(0 0 4px var(--glow));
+}
+
+.zero {
+  stroke: var(--axis);
+}
+
+.now line {
+  stroke: var(--text);
+  stroke-dasharray: 3 3;
+}
+
+.now circle {
+  fill: var(--text);
+}
+
+details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+}
+
+details > summary h2 {
+  display: inline;
+  margin: 0;
+}
+
+details[open] > summary {
+  margin-bottom: 0.5rem;
+}
+
 .table-scroll {
   max-height: 24rem;
   overflow: auto;
   border: 1px solid var(--line);
+  border-radius: 12px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
 }
 
 caption {
@@ -171,13 +331,13 @@ th,
 td {
   text-align: left;
   padding: 0.35rem 0.5rem;
-  border-top: 1px solid #d9dee3;
+  border-top: 1px solid var(--line);
 }
 
 thead th {
   position: sticky;
   top: 0;
-  background: #fff;
+  background: var(--surface);
 }
 
 tr.chosen {
@@ -187,6 +347,70 @@ tr.chosen {
 
 footer {
   margin-top: 2rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
+}
+
+/* Motion: each one explains something, and all of it is off for people who ask for less */
+@media (prefers-reduced-motion: no-preference) {
+  .bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: grow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+    animation-delay: min(calc(var(--i) * 12ms), 600ms);
+  }
+
+  .bar.neg {
+    transform-origin: top;
+  }
+
+  /* The chosen slots light up one after another, like a battery filling */
+  .bar.chosen {
+    animation:
+      grow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards,
+      charge 0.4s ease backwards;
+    animation-delay: min(calc(var(--i) * 12ms), 600ms), calc(700ms + var(--c) * 90ms);
+  }
+
+  .when {
+    animation: rise 0.45s ease-out;
+  }
+
+  .now circle {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes charge {
+  from {
+    fill: var(--bar);
+    filter: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
 }

@@ -1,0 +1,58 @@
+{
+  "label": "redesign",
+  "runs": 3,
+  "median": {
+    "score": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": 1501.9074,
+    "lcp": 1501.9074,
+    "tbt": 0,
+    "cls": 0,
+    "speedIndex": 1501.9074,
+    "transferKb": 106.64453125,
+    "scriptKb": 103.1630859375
+  },
+  "all": [
+    {
+      "score": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fcp": 1502.9335,
+      "lcp": 1502.9335,
+      "tbt": 0,
+      "cls": 0,
+      "speedIndex": 1502.9335,
+      "transferKb": 106.64453125,
+      "scriptKb": 103.1630859375
+    },
+    {
+      "score": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fcp": 1501.9074,
+      "lcp": 1501.9074,
+      "tbt": 0,
+      "cls": 0,
+      "speedIndex": 1501.9074,
+      "transferKb": 106.64453125,
+      "scriptKb": 103.1630859375
+    },
+    {
+      "score": 100,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "fcp": 1501.6916,
+      "lcp": 1501.6916,
+      "tbt": 0,
+      "cls": 0,
+      "speedIndex": 1501.6916,
+      "transferKb": 106.64453125,
+      "scriptKb": 103.1630859375
+    }
+  ]
+}

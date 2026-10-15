@@ -8,7 +8,7 @@ interface Props {
 export function PlanSummary({ result }: Props) {
   if (!result) {
     return (
-      <section aria-labelledby="plan-heading" className="summary">
+      <section aria-labelledby="plan-heading" className="card summary">
         <h2 id="plan-heading">Cheapest time to charge</h2>
         <p aria-live="polite">Waiting for prices.</p>
       </section>
@@ -18,7 +18,7 @@ export function PlanSummary({ result }: Props) {
   if (result.kind === 'too-short') {
     const hours = result.available / 2;
     return (
-      <section aria-labelledby="plan-heading" className="summary">
+      <section aria-labelledby="plan-heading" className="card summary">
         <h2 id="plan-heading">Cheapest time to charge</h2>
         <p role="alert">
           The prices available cover {hours} {hours === 1 ? 'hour' : 'hours'} in one run, which is not enough
@@ -32,10 +32,12 @@ export function PlanSummary({ result }: Props) {
   const { plan } = result;
   const saving = plan.savingPence;
   return (
-    <section aria-labelledby="plan-heading" className="summary">
+    <section aria-labelledby="plan-heading" className="card summary">
       <h2 id="plan-heading">Cheapest time to charge</h2>
       <div aria-live="polite">
-        <p className="when">{describeSlots(plan.chosen)}</p>
+        <p className="when" key={describeSlots(plan.chosen)}>
+          {describeSlots(plan.chosen)}
+        </p>
         <dl>
           <div>
             <dt>Average price</dt>

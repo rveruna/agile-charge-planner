@@ -190,6 +190,20 @@ describe('the chart and the table', () => {
     expect(Number(negative.getAttribute('y'))).toBeCloseTo(zeroLine);
   });
 
+  it('marks the current time on the chart', async () => {
+    respondWith(PRICES);
+    renderApp('?hours=1');
+    await screen.findByText('12:00 to 13:00');
+
+    const marker = screen.getByTestId('now-marker');
+    const chart = screen.getByTestId('rate-chart');
+    const firstBar = chart.querySelector('rect[data-chosen]')!;
+    // NOW falls inside the first slot, so the line sits over the first bar
+    const x = Number(marker.querySelector('line')!.getAttribute('x1'));
+    expect(x).toBeGreaterThanOrEqual(Number(firstBar.getAttribute('x')) - 1);
+    expect(x).toBeLessThan(Number(firstBar.getAttribute('x')) + Number(firstBar.getAttribute('width')));
+  });
+
   it('lets keyboard users scroll the table and the chart', async () => {
     respondWith(PRICES);
     renderApp('?hours=1');
@@ -337,6 +351,28 @@ describe('offline', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent(/offline and there are no saved prices/);
     expect(screen.getByRole('button', { name: 'Use sample prices' })).toBeInTheDocument();
+  });
+});
+
+describe('theme', () => {
+  afterEach(() => {
+    delete document.documentElement.dataset.theme;
+    localStorage.clear();
+  });
+
+  it('starts dark and switches to light and back, remembering the choice', async () => {
+    respondWith(PRICES);
+    const user = userEvent.setup();
+    renderApp();
+    await screen.findByText(/Live Agile prices/);
+
+    await user.click(screen.getByRole('button', { name: 'Light theme' }));
+    expect(document.documentElement.dataset.theme).toBe('light');
+    expect(localStorage.getItem('agile-charge-planner-theme')).toBe('light');
+
+    await user.click(screen.getByRole('button', { name: 'Dark theme' }));
+    expect(document.documentElement.dataset.theme).toBeUndefined();
+    expect(localStorage.getItem('agile-charge-planner-theme')).toBe('dark');
   });
 });
 

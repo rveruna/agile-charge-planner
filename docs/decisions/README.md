@@ -9,3 +9,4 @@ Short notes on choices that were not obvious, with the evidence behind each.
 | [0003](0003-sample-prices-instead-of-a-mock-server.md)             | A labelled sample mode instead of a mock server                    |
 | [0004](0004-a-chart-with-a-table-and-a-checked-palette.md)         | A chart backed by a table, with a palette whose contrast is tested |
 | [0005](0005-save-prices-for-offline-use.md)                        | Save prices in the browser and say when they are saved ones        |
+| [0006](0006-dark-theme-answer-first-and-motion-that-explains.md)   | A dark theme, the answer first, and motion that explains           |

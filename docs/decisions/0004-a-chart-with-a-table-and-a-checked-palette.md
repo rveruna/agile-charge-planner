@@ -13,7 +13,8 @@ reader users cannot read it, and people with low vision or colour blindness may 
   cheapest charge, then points to the table.
 - The table lists every slot, marks the chosen ones in text ("Charge here") and not only by background colour.
 - The chosen bars are also marked by a strip under the axis, so colour is not the only cue.
-- The colours are in one file, and a test checks their contrast: at least 3:1 against the background (non-text) and
+- The colours are in one file (since [0006](0006-dark-theme-answer-first-and-motion-that-explains.md), the custom
+  properties in styles.css), and a test checks their contrast: at least 3:1 against the background (non-text) and
   at least 3:1 between chosen and unchosen bars.
 - Both the chart and the table sit in keyboard-focusable scroll regions. On narrow screens the chart scrolls
   instead of shrinking until its labels are unreadable.
