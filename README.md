@@ -31,7 +31,7 @@ It is an independent project and is not affiliated with Octopus Energy. Prices a
 ```bash
 npm install
 npm run dev
-npm test               # 125 tests
+npm test               # 147 tests and 43 rule scenarios
 npm run test:coverage
 npm run build
 npm run lint
@@ -107,7 +107,8 @@ To add a scenario, add a row or a scenario to a feature file and run `npm test`.
   constant is changed.
 - The cost is the unit rate times energy. It leaves out the standing charge, charger and battery losses, and the car's
   actual state of charge.
-- "If you started now" assumes you would charge in the first slots available.
+- "If you started now" is one unbroken charge from the first slots available. If the prices have a gap in that time,
+  it says it is not known rather than pricing a charge that jumps the gap.
 - A full offline start needs a service worker, which is not included. Prices already saved do survive a reload.
 - Settings that are not a region (length, power and so on) are chosen from fixed lists, not typed in, to keep the
   URL and the validation simple.

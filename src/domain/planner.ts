@@ -18,9 +18,9 @@ export interface Plan {
   energyKwh: number;
   costPence: number;
   averagePence: number;
-  /** The same charge started now, in the first slots available. */
-  startNowCostPence: number;
-  savingPence: number;
+  /** The same charge as one unbroken session from now. `null` when a gap in the prices means it cannot be priced. */
+  startNowCostPence: number | null;
+  savingPence: number | null;
 }
 
 export type PlanResult =
@@ -38,6 +38,11 @@ export function consideredSlots(slots: Slot[], now: number, withinHours: number 
   return slots.filter((slot) => slot.end > now && slot.start < horizon);
 }
 
+/** Whether each slot starts where the one before it ends. */
+function isUnbroken(slots: Slot[]): boolean {
+  return slots.every((slot, j) => j === 0 || slot.start === slots[j - 1]!.end);
+}
+
 function sum(slots: Slot[]): number {
   return slots.reduce((total, slot) => total + slot.pence, 0);
 }
@@ -48,8 +53,7 @@ export function cheapestTogether(slots: Slot[], count: number): Slot[] {
   let bestTotal = Infinity;
   for (let i = 0; i + count <= slots.length; i++) {
     const window = slots.slice(i, i + count);
-    const unbroken = window.every((slot, j) => j === 0 || slot.start === window[j - 1]!.end);
-    if (!unbroken) continue;
+    if (!isUnbroken(window)) continue;
     const total = sum(window);
     if (total < bestTotal) {
       best = window;
@@ -84,7 +88,9 @@ export function planCharge({ slots, now, withinHours, hours, powerKw, mode }: Pl
 
   const energyKwh = needed * powerKw * (HALF_HOUR_MS / 3_600_000);
   const costPence = costOf(chosen, powerKw);
-  const startNowCostPence = costOf(considered.slice(0, needed), powerKw);
+  // Starting now is one unbroken session, like a "together" charge, so it is never cheaper than the plan
+  const startNow = considered.slice(0, needed);
+  const startNowCostPence = isUnbroken(startNow) ? costOf(startNow, powerKw) : null;
   return {
     kind: 'ok',
     considered,
@@ -94,7 +100,7 @@ export function planCharge({ slots, now, withinHours, hours, powerKw, mode }: Pl
       costPence,
       averagePence: costPence / energyKwh,
       startNowCostPence,
-      savingPence: startNowCostPence - costPence,
+      savingPence: startNowCostPence === null ? null : startNowCostPence - costPence,
     },
   };
 }
