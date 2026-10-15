@@ -1,0 +1,192 @@
+:root {
+  --text: #1f2933;
+  --muted: #3e4c59;
+  --accent: #0b6b3a;
+  --line: #9aa5b1;
+  --warn-bg: #fff4d6;
+  --error-bg: #fde8e8;
+  --quiet-bg: #eef6f1;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  color: var(--text);
+  background: #fff;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+header,
+main,
+footer {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 0.25rem;
+}
+
+h2 {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.settings {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  margin: 1rem 0;
+}
+
+.settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 600;
+}
+
+fieldset {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.choice {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  font-weight: 400 !important;
+}
+
+select,
+button {
+  font: inherit;
+  padding: 0.5rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+}
+
+input[type='radio'] {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+button {
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+:focus-visible {
+  outline: 3px solid #1c4fd8;
+  outline-offset: 2px;
+}
+
+.banner {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--quiet-bg);
+}
+
+.banner p {
+  margin: 0 0 0.5rem;
+}
+
+.banner-quiet {
+  margin: 0;
+}
+
+.banner-warn {
+  background: var(--warn-bg);
+}
+
+.banner-error {
+  background: var(--error-bg);
+}
+
+.summary .when {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+  color: var(--accent);
+}
+
+dl {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+}
+
+dt {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.chart-scroll {
+  overflow-x: auto;
+}
+
+/* Below this width the labels would be unreadably small, so the chart scrolls instead of shrinking */
+.chart {
+  display: block;
+  width: 100%;
+  min-width: 640px;
+  height: auto;
+}
+
+.table-scroll {
+  max-height: 24rem;
+  overflow: auto;
+  border: 1px solid var(--line);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+caption {
+  text-align: left;
+  padding: 0.5rem;
+  color: var(--muted);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.35rem 0.5rem;
+  border-top: 1px solid #d9dee3;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+}
+
+tr.chosen {
+  background: var(--quiet-bg);
+  font-weight: 600;
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
