@@ -3,7 +3,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 
-// Budgets in kilobytes of gzipped output, with headroom over today's size (JS 104.9 kB, CSS 0.9 kB).
+// Budgets in kilobytes of gzipped output, with headroom over today's size (JS 105.2 kB, CSS 1.9 kB).
 const BUDGETS = { '.js': 115, '.css': 3 };
 
 const dir = new URL('../dist/assets/', import.meta.url);

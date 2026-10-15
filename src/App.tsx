@@ -4,6 +4,7 @@ import { PlanSummary } from './components/PlanSummary';
 import { RateChart } from './components/RateChart';
 import { RateTable } from './components/RateTable';
 import { SettingsForm } from './components/SettingsForm';
+import { ThemeToggle } from './components/ThemeToggle';
 import { regionName } from './domain/regions';
 import { planCharge } from './domain/planner';
 import { withinHours } from './domain/settings';
@@ -38,24 +39,26 @@ export default function App() {
     <>
       <header>
         <h1>Agile Charge Planner</h1>
-        <p>
-          Find the cheapest half-hours to charge an electric car on Agile Octopus in{' '}
-          {regionName(settings.region)}.
-        </p>
+        <ThemeToggle />
       </header>
+      <p className="intro">
+        The cheapest half-hours to charge an electric car on Agile Octopus in {regionName(settings.region)}.
+      </p>
       <main id="main">
-        <SettingsForm settings={settings} onChange={update} />
+        <PlanSummary result={result} />
+        <div className="card">
+          <SettingsForm settings={settings} onChange={update} />
+        </div>
         <DataStatus
           status={status}
           onRetry={retry}
           onUseSample={() => update({ sample: '1' })}
           onUseLive={() => update({ sample: undefined })}
         />
-        <PlanSummary result={result} />
         {shown.length > 0 && (
-          <section aria-labelledby="chart-heading">
+          <section aria-labelledby="chart-heading" className="card reveal">
             <h2 id="chart-heading">Prices at a glance</h2>
-            <RateChart slots={shown} chosen={chosen} />
+            <RateChart slots={shown} chosen={chosen} now={now} />
           </section>
         )}
         <RateTable slots={shown} chosen={chosen} />
