@@ -47,15 +47,15 @@ export function RateChart({ slots, chosen }: Props) {
         data-testid="rate-chart"
       >
         <line x1={MARGIN.left} x2={WIDTH - MARGIN.right} y1={zeroY} y2={zeroY} stroke={colors.axis} />
-        <text x={MARGIN.left - 6} y={y(top) + 4} textAnchor="end" fontSize="11" fill={colors.text}>
+        <text x={MARGIN.left - 6} y={y(top) + 4} textAnchor="end" fontSize="12" fill={colors.text}>
           {formatPence(top)}
         </text>
         {bottom < 0 && (
-          <text x={MARGIN.left - 6} y={y(bottom)} textAnchor="end" fontSize="11" fill={colors.text}>
+          <text x={MARGIN.left - 6} y={y(bottom)} textAnchor="end" fontSize="12" fill={colors.text}>
             {formatPence(bottom)}
           </text>
         )}
-        <text x={MARGIN.left - 6} y={zeroY + 4} textAnchor="end" fontSize="11" fill={colors.text}>
+        <text x={MARGIN.left - 6} y={zeroY + 4} textAnchor="end" fontSize="12" fill={colors.text}>
           0p
         </text>
 
@@ -96,7 +96,7 @@ export function RateChart({ slots, chosen }: Props) {
               key={slot.start}
               x={MARGIN.left + i * slotW}
               y={HEIGHT - 12}
-              fontSize="11"
+              fontSize="12"
               fill={colors.text}
             >
               {formatClock(slot.start)}
